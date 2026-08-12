@@ -1,0 +1,19 @@
+services:
+  matrixark-test:
+    build:
+      context: .
+    environment:
+      MATRIXARK_ALLOW_MODEL_DOWNLOAD: "1"
+      MATRIXARK_EMBEDDING_PROVIDER: sentence-transformers
+      MATRIXARK_EMBEDDING_MODEL: sentence-transformers/all-MiniLM-L6-v2
+      MATRIXARK_EXTRACTION_PROVIDER: oss-llm
+      MATRIXARK_EXTRACTION_MODEL: google/flan-t5-small
+      MATRIXARK_VLM_PROVIDER: hf-vlm
+      MATRIXARK_VLM_MODEL: Salesforce/blip-image-captioning-base
+    volumes:
+      - ./examples/resources:/resources:ro
+      - matrixark-hf-cache:/root/.cache/huggingface
+    command: ["sh", "-c", "python -m unittest discover -s tests -v && python examples/gpu_purchase_flow.py && python examples/agent_loop_flow.py"]
+
+volumes:
+  matrixark-hf-cache:

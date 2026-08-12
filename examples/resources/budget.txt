@@ -1,0 +1,1 @@
+Project 1 budget note: GPU cloud capacity should stay below 50000 USD unless finance confirms remaining budget.

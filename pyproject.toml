@@ -1,0 +1,28 @@
+[project]
+name = "matrixark-context-runtime"
+version = "0.1.0"
+description = "Python MVP for MatrixArk LLM context ingestion, retrieval, and feedback."
+license = { text = "Apache-2.0" }
+requires-python = ">=3.10"
+dependencies = []
+classifiers = [
+  "License :: OSI Approved :: Apache Software License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+]
+
+[project.optional-dependencies]
+models = [
+  "sentence-transformers>=3.0.0",
+  "transformers>=4.40.0",
+  "pypdf>=4.0.0",
+  "markdown-it-py>=3.0.0",
+  "pillow>=10.0.0",
+]
+api = [
+  "fastapi>=0.111.0",
+  "uvicorn>=0.30.0",
+]
+test = [
+  "pytest>=8.0.0",
+]
