@@ -10,6 +10,14 @@ token-budgeted context pack.
 
 MatrixArk Context Runtime is open source under the Apache License 2.0.
 
+## Rust Repositories
+
+MatrixArk also publishes the core Rust infrastructure as public open-source repos:
+
+- [TemporalStore](https://github.com/matrixarkai/TemporalStore) - Rust TemporalStore for LLM context management, temporal features, and risk control.
+- [matrixcache](https://github.com/matrixarkai/matrixcache) - Rust multi-layer cache system.
+- [matrixraft](https://github.com/matrixarkai/matrixraft) - Rust Raft consensus library.
+
 The design follows the practical infrastructure shape we saw in OpenViking-style
 systems:
 
