@@ -7,7 +7,7 @@ from pathlib import Path
 from matrixark import IngestRequest, MatrixArkContextService, MockAiAgentHarness, ResourceIngestRequest
 
 
-class OpenVikingStyleE2ETest(unittest.TestCase):
+class StagedContextFlowE2ETest(unittest.TestCase):
     def test_extraction_recall_query_feedback_and_confirmation_pipeline(self) -> None:
         service = MatrixArkContextService()
         tenant_id = "company_a"

@@ -16,7 +16,7 @@ The MatrixArk Python runtime passed the local fast validation suite:
 - Public API validation for required fields, prompt budget, resource paths, and
   embedding records
 - Raw-query retrieval from TemporalStore
-- OpenViking-style e2e extraction -> recall -> filter -> pack test
+- Staged e2e extraction -> recall -> filter -> pack test
 - Feedback and confirmation event injection
 - Embedding-model and VLM-model summary/query embeddings stored in TemporalStore
 - Resource ingestion for Markdown, PDF fallback text, and TXT
@@ -59,12 +59,12 @@ Ran 8 tests
 OK
 ```
 
-### 2. OpenViking-Style E2E Test
+### 2. Staged Context Flow E2E Test
 
 Command:
 
 ```bash
-PYTHONPATH=matrixark python3 -m unittest discover -s matrixark/tests -p 'test_openviking_style_e2e.py' -v
+python3 -m unittest discover -s tests -p 'test_staged_context_flow_e2e.py' -v
 ```
 
 Result:
@@ -201,7 +201,7 @@ Interpretation:
 - `ingest()` also writes VLM summary embeddings to TemporalStore.
 - Public API validation rejects empty tenant/query ids, invalid prompt budgets,
   missing feedback query ids, nonexistent resource paths, and malformed embeddings.
-- OpenViking-style e2e test validates extraction, embedding, recall, filter, pack, feedback, confirmation, and replay in one flow.
+- The staged e2e test validates extraction, embedding, recall, filter, pack, feedback, confirmation, and replay in one flow.
 - `retrieve()` uses raw query + hints and returns relevant TemporalStore context.
 - `retrieve()` stores query embeddings and VLM query embeddings in TemporalStore before recall.
 - Time-window filtering excludes stale events.

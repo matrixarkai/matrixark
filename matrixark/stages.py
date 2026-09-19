@@ -1,4 +1,4 @@
-"""OpenViking-inspired staged context runtime."""
+"""Staged context runtime: extract, embed, recall, filter, pack."""
 
 from __future__ import annotations
 
