@@ -32,7 +32,7 @@ Docker image build was attempted, but it did not reach MatrixArk code because th
 Run from:
 
 ```bash
-cd /mnt/c/root/src/github-services/matrixarkai-gitpush
+cd <your-checkout>
 ```
 
 ### 1. Unit Tests
@@ -148,7 +148,7 @@ Result: passed.
 Command:
 
 ```bash
-cd /mnt/c/root/src/github-services/matrixarkai-gitpush/matrixark
+cd <your-checkout>/matrixark
 docker-compose config
 ```
 
@@ -170,7 +170,7 @@ What it validates:
 Command:
 
 ```bash
-cd /mnt/c/root/src/github-services/matrixarkai-gitpush/matrixark
+cd <your-checkout>/matrixark
 docker-compose build
 ```
 
@@ -217,7 +217,7 @@ Interpretation:
 ## Docker Test To Rerun When Network Works
 
 ```bash
-cd /mnt/c/root/src/github-services/matrixarkai-gitpush/matrixark
+cd <your-checkout>/matrixark
 docker-compose build
 MATRIXARK_ALLOW_MODEL_DOWNLOAD=1 docker-compose run --rm matrixark-test
 ```
