@@ -15,48 +15,67 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 
+# THE GOVERNANCE DOCS ARE AT THE ROOT IN THIS REPOSITORY, not under `docs/`. They were listed
+# under `docs/` because this validator arrived as a copy of one written for a tree that keeps them
+# there, and `read()` raises on the first missing path -- so every check below the file loop, the
+# private-path scan included, had never executed here.
+#
+# `open_source_readiness.md` is deliberately absent rather than relocated: it does not exist in this
+# repository under any path, and requiring a document that was never written here would be a gate
+# that can only be satisfied by inventing one.
 REQUIRED_FILES = [
     "README.md",
     "LICENSE",
     "NOTICE",
-    "docs/CONTRIBUTING.md",
-    "docs/SECURITY.md",
-    "docs/CODE_OF_CONDUCT.md",
+    "CONTRIBUTING.md",
+    "SECURITY.md",
+    "CODE_OF_CONDUCT.md",
     ".gitignore",
-    "docs/open_source_readiness.md",
     "tools/run_matrixark_context_backfill_ci_gate_ubuntu22.sh",
     "tools/verify_matrixark_context_backfill_ci_evidence.py",
 ]
 
+# THE TOKENS ASSERT THE OPENNESS PROMISE, which is the thing that must not quietly disappear.
+#
+# They used to be another tree's prose -- "rust-main", "no brpc/thrift", "TS_RAFT_AUTH_TOKEN" -- and
+# 1 of 5, 0 of 3 and 0 of 3 of them were present in this repository's own documents. A token list
+# that cannot match is indistinguishable from no gate at all, so they are retargeted at sentences
+# this repository actually makes, and each one is load-bearing: delete the licence line, or the
+# promise that anybody may use and fork this, and the gate fails.
 README_TOKENS = [
-    "Apache-2.0",
-    "rust-main",
-    "no brpc/thrift",
-    "Rust-native",
-    "production-readiness claims",
+    "Apache License 2.0",
+    "for anyone in the world to use, fork",
+    "Issues and pull requests are welcome from everyone",
+    "public and Apache-2.0",
 ]
 
+# Reporting must stay PRIVATE and the advisory route must stay named. A security policy that drops
+# the private channel sends the next reporter to a public issue.
 SECURITY_TOKENS = [
-    "Do not open a public issue with exploit details",
-    "Do not commit API keys",
-    "TS_RAFT_AUTH_TOKEN",
+    "privately",
+    "security/advisories/new",
+    "rather than\nopening a public issue or pull request",
 ]
 
+# Contribution must stay open to people with no affiliation, and the inbound licence must stay
+# stated -- without it a contributor has not agreed to anything.
 CONTRIBUTING_TOKENS = [
-    "shared-corpus",
-    "rust-internal",
-    "Do not add brpc or thrift",
+    "Issues, discussion and pull requests",
+    "from anyone",
+    "Apache-2.0 and open to the world",
+    "licensed under the Apache",
 ]
 
+# THIS IS A PYTHON TREE, so the build outputs that must stay untracked are Python's. The previous
+# list named a Rust target directory and three build trees that do not exist here; only `.codex/`
+# overlapped, and it is kept because a tracked local agent config is checked separately below.
 IGNORE_TOKENS = [
-    "target/",
-    ".codex/",
-    ".local/",
-    "build-ubuntu22/",
-    "output/",
-    "target-rust-bench/",
-    "thirdparty/",
-    "benchmark_reports/",
+    "__pycache__/",
+    "build/",
+    "dist/",
+    ".eggs/",
+    "*.egg-info/",
+    ".pytest_cache/",
 ]
 
 BACKFILL_CI_GATE_TOKENS = [
@@ -151,6 +170,20 @@ FOREIGN_VOCABULARY_FIXTURE_FILES = {
     "tools/validate_open_source_readiness.py",
 }
 
+# Source files of the enterprise object-store implementation. A public file has no reason to name
+# one: it cannot build them, and naming them maps out a tree that does not ship.
+ENTERPRISE_NATIVE_SOURCES = [
+    "objectstore.cc",
+    "objectstore.h",
+    "objectstore_rpc.cc",
+]
+
+# This file carries those names as the rule itself, exactly as it carries the private-path and
+# vocabulary patterns below.
+ENTERPRISE_SOURCE_FIXTURE_FILES = {
+    "tools/validate_open_source_readiness.py",
+}
+
 PRIVATE_PATH_FIXTURE_FILES = {
     "tools/validate_open_source_readiness.py",
     "tools/validate_temporalstore_performance_execution_redaction.py",
@@ -172,14 +205,19 @@ def require_tokens(relative_path: str, tokens: list[str]) -> None:
         raise SystemExit(f"{relative_path} missing tokens: {', '.join(missing)}")
 
 
-def validate_cargo_license() -> None:
-    cargo = read("Cargo.toml")
-    if 'license = "Apache-2.0"' not in cargo:
-        raise SystemExit("Cargo.toml must declare workspace Apache-2.0 license")
-    for crate in ["crates/temporalstore-rust/Cargo.toml", "crates/temporalstore-snapshot/Cargo.toml"]:
-        text = read(crate)
-        if "license.workspace = true" not in text:
-            raise SystemExit(f"{crate} must inherit workspace license")
+def validate_package_license() -> None:
+    """The licence must be declared where a PACKAGING TOOL reads it, not only in LICENSE.
+
+    This repository ships as a Python package and has no Cargo manifest; the check it inherited
+    read one, so it could never pass here. `pyproject.toml` is the equivalent position: the
+    `license` field is what an index publishes and what a consumer's scanner reads, and the OSI
+    classifier is what makes the licence machine-identifiable rather than merely present.
+    """
+    pyproject = read("pyproject.toml")
+    if 'license = { text = "Apache-2.0" }' not in pyproject:
+        raise SystemExit('pyproject.toml must declare license = { text = "Apache-2.0" }')
+    if "License :: OSI Approved :: Apache Software License" not in pyproject:
+        raise SystemExit("pyproject.toml must carry the OSI Apache classifier")
 
 
 def validate_license() -> None:
@@ -276,6 +314,26 @@ def validate_no_enterprise_object_store() -> None:
                 "wire protocol -- that server is enterprise-only"
             )
 
+    # A tracked file that names the enterprise implementation's OWN SOURCE FILES documents that
+    # tree inside a public repository, which is the same disclosure as shipping it. The checks above
+    # look for the crate, the Cargo dependency and a server binary -- all of them things that COMPILE
+    # -- so a script that merely reads those sources passes every one of them. One did, naming three
+    # of them by path, until it was removed in the change that added this rule.
+    for relative_path in tracked:
+        if relative_path in ENTERPRISE_SOURCE_FIXTURE_FILES:
+            continue
+        path = ROOT / relative_path
+        if not path.is_file():
+            continue
+        text = path.read_text(encoding="utf-8", errors="replace")
+        for basename in ENTERPRISE_NATIVE_SOURCES:
+            if basename in text:
+                offenders.append(
+                    f"{relative_path}: names {basename}, a source file of the enterprise "
+                    "object store -- that tree must not be described in open source"
+                )
+                break
+
     if offenders:
         raise SystemExit(
             "enterprise MatrixObject object store must not ship in open source "
@@ -348,27 +406,19 @@ def repository_files() -> list[str]:
 def main() -> int:
     for path in REQUIRED_FILES:
         read(path)
-    validate_cargo_license()
+    validate_package_license()
     validate_license()
     validate_no_tracked_local_codex_config()
     validate_no_private_paths()
     validate_no_enterprise_object_store()
     validate_no_foreign_vocabulary()
     require_tokens("README.md", README_TOKENS)
-    require_tokens("docs/SECURITY.md", SECURITY_TOKENS)
-    require_tokens("docs/CONTRIBUTING.md", CONTRIBUTING_TOKENS)
+    require_tokens("SECURITY.md", SECURITY_TOKENS)
+    require_tokens("CONTRIBUTING.md", CONTRIBUTING_TOKENS)
     require_tokens(".gitignore", IGNORE_TOKENS)
     require_tokens(
         "tools/run_matrixark_context_backfill_ci_gate_ubuntu22.sh",
         BACKFILL_CI_GATE_TOKENS,
-    )
-    require_tokens(
-        "docs/open_source_readiness.md",
-        [
-            "brpc/thrift compatibility remains explicitly out of scope",
-            "generated build outputs",
-            "`workflow` scope",
-        ],
     )
     report = {
         "status": "ok",

@@ -1,0 +1,63 @@
+name: OSS readiness
+
+# Repository-level open-source readiness gate: this repository is Apache-2.0 and open to anyone in
+# the world, and these checks are what keep that true on every push rather than on inspection.
+#
+# THIS REPOSITORY HAD NO WORKFLOWS AT ALL until this file. The maintainer tooling in tools/ --
+# including the readiness validator and its unit test -- was tracked here and executed nowhere, so
+# the contract was documented rather than enforced. Two things were wrong on main as a result and
+# neither was noticed: a tracked document carried a private checkout path, and a tool described
+# source files of a tree that does not ship here.
+#
+# The job is intentionally dependency-free (no compiler, no private git dependencies, no secrets)
+# so it stays green on any runner.
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    # No `branches:` filter, deliberately. That key filters on the BASE branch, so a stacked pull
+    # request -- based on the branch below it rather than on main -- would not be covered at all,
+    # and GitHub does not re-run checks when it retargets such a pull request to main after the
+    # branch below merges. The stale green from the feature-branch days would then be what the
+    # merge reports. Running on every pull request is the only way this gate sees what lands.
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  oss-readiness:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # The readiness validator asks `git ls-files` what is tracked, because what ships is the
+          # tracked set and not the working tree. A shallow or sparse checkout would narrow that
+          # answer and quietly shrink every scan below.
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Byte-compile maintainer tooling
+        run: python -m py_compile tools/*.py
+
+      # The unit test runs BEFORE the validator, on purpose. It is the arm that proves the
+      # private-path scan can still see -- a scan whose token list went empty would pass every
+      # tree, and the test asserts the list is non-empty as well as exercising the scan. It is
+      # also the arm that found the private path on main, because the validator itself exited
+      # earlier on a missing-file check and never reached the scan.
+      - name: Test the readiness validator
+        run: python tools/test_validate_open_source_readiness.py
+
+      - name: Validate open-source readiness contract
+        run: python tools/validate_open_source_readiness.py
+
+      # Green and unwired is the same protection as absent.
+      - name: Refuse retired object-store naming
+        run: python tools/validate_legacy_object_store_names.py
