@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 MatrixArkAI
 """The gateway's heap trim must fire when it should and stay quiet when it should not.
 
 A trimmer that never fires is worse than no trimmer, because the resident-memory graph looks the

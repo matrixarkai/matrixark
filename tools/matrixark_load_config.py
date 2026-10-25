@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 MatrixArkAI
 """Centralized-config loader for TemporalStore / MatrixArk.
 
 Reads ``config/temporalstore.toml`` and, for every ``SECTION.key`` it knows,

@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 MatrixArkAI
 """Re-run the 2-node/2-shard add+drop rebalance validation against the
 auto-rebalance build. Proves: auto-reassign on drop, data intact on move,
 metaserver-driven placement on add."""

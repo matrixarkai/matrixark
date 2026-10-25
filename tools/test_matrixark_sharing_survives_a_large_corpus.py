@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 MatrixArkAI
 """A field that repeats must keep being shared however many distinct values it holds.
 
 The shared table used to stop at 4,096 entries -- a ceiling picked when the busiest field on the

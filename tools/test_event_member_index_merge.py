@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 MatrixArkAI
 """The membership index is now merged incrementally on append instead of being dropped and
 rebuilt from the whole store. Guard the property that makes that sound: a merge must produce
 exactly what a full rebuild would, and a removal must NOT take the merge path.

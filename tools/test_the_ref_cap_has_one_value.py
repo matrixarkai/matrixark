@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 MatrixArkAI
 """One setting, one number, across every surface that declares it.
 
 `max_selected_refs` carried FOUR values at once: config/temporalstore.toml said 1000, two Python

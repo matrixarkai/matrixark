@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 MatrixArkAI
 """The two `session_commit` paths record different memory-layer lineage, and neither is wider.
 
 `session_commit` exists twice: a mixin method in `matrixark_local_adapter_session_commit` and a free

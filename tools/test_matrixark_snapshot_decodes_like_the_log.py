@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 MatrixArkAI
 """The durable snapshot must decode to the same objects the log decodes to.
 
 Both paths return the same records, so they have to return them at the same cost. A bare

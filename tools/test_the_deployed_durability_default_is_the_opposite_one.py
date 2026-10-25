@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 MatrixArkAI
 """The engine says async storage must never be the deployed default. Every launcher makes it one.
 
 `matrixark_rust_proxy_impl.rs` reads the flag and defaults it OFF, with the reason written beside

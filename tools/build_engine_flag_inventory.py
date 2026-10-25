@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 MatrixArkAI
 """Generate the engine flag inventory: every environment variable the engine reads, what it is
 for, and what keeping it costs.
 

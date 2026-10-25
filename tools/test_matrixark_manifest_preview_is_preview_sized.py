@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 MatrixArkAI
 """A skill manifest's preview must be a preview, not a copy of the skill.
 
 `clip_context_text` defaults to MAX_CONTEXT_REF_CHARS (4096) -- the size a served context REF may

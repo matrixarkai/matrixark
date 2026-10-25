@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 MatrixArkAI
 """A boolean vocabulary that accepts "true" must accept "on".
 
 ``matrixark_mcp_env`` defines the vocabulary this tree uses::

@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 MatrixArkAI
 """The shipped config file says where it departs from what this build runs.
 
 ``config/temporalstore.toml`` opens by saying it "documents and pins the defaults". For most keys

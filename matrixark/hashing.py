@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 MatrixArkAI
 """Stable hashing helpers for TemporalStore object keys."""
 
 from __future__ import annotations

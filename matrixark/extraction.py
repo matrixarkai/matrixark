@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 MatrixArkAI
 """Extraction providers with hooks for open-source LLM models."""
 
 from __future__ import annotations

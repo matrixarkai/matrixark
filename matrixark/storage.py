@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 MatrixArkAI
 """TemporalStore-facing protocols and test adapter."""
 
 from __future__ import annotations

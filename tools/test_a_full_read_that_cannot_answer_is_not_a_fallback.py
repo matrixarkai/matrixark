@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 MatrixArkAI
 """A full read that goes back to the backend that just refused is not a fallback.
 
 Measured 2026-09-09 on a native one-box: one request with the backend down did TEN whole-corpus

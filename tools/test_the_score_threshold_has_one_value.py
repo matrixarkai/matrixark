@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 MatrixArkAI
 """The score threshold comes from one place.
 
 It came from five, and they disagreed: config/temporalstore.toml declared 0.05, two Python modules

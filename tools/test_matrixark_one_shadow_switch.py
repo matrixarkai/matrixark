@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 MatrixArkAI
 """One switch turns the shadow comparison on, and one names where it writes.
 
 There were twelve: MATRIXARK_<OP>_SHADOW_COMPARE and MATRIXARK_<OP>_SHADOW_LOG for each of six

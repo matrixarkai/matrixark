@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 MatrixArkAI
 """The documented context-char limit reaches both hooks, not one of them.
 
 `MATRIXARK_HOOK_ADDITIONAL_CONTEXT_CHAR_LIMIT` is offered on the operator page as "how many

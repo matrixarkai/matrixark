@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 MatrixArkAI
 """Placement chunking must bound what an append writes WITHOUT ever losing a location.
 
 The dangerous failure is silent: a dropped location is a memory that retrieval simply cannot see,

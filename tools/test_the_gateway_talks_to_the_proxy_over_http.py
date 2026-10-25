@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 MatrixArkAI
 """The HTTP transport must return the SAME answers the pipe returns.
 
 Not "HTTP works": the point of the change is that a client swaps where it sends without changing

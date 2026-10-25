@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 MatrixArkAI
 """The durable snapshot and the durable log hold the same records; they must hold them the same way.
 
 The log replaces each record's interned metadata with a bundle token and writes one sidecar per

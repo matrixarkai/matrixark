@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 MatrixArkAI
 # examples/mem0/python_sdk_example.py
 """mem0-compatible Python SDK example (drop-in replacement for mem0's Memory).
 

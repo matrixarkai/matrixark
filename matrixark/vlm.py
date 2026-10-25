@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 MatrixArkAI
 """VLM providers for multimodal query and summary embedding signals."""
 
 from __future__ import annotations

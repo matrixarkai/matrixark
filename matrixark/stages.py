@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 MatrixArkAI
 """Staged context runtime: extract, embed, recall, filter, pack."""
 
 from __future__ import annotations
