@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 MatrixArkAI
 """Context-pack construction and token budgeting."""
 
 from __future__ import annotations

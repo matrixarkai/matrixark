@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 MatrixArkAI
 """Validation helpers for MatrixArk public APIs."""
 
 from __future__ import annotations

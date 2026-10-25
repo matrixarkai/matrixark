@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 MatrixArkAI
 """Tests for the backend interning codec.
 
 A codec that loses a field on a crash is worse than the bytes it saves, so these check the

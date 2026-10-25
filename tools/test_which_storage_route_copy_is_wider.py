@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 MatrixArkAI
 """Which copy of `canonical_storage_route` is wider, measured rather than remembered.
 
 Two copies exist -- `matrixark_mcp_core` and `matrixark_mcp_storage_options` -- and the single

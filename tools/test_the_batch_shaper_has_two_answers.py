@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 MatrixArkAI
 """`materialize_serving_record_batch` gives two different answers, and this records which.
 
 The function is defined twice. The two bodies differ by exactly one statement::

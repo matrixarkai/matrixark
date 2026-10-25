@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 MatrixArkAI
 """Shard size is part of the on-disk contract, so every surface must agree on it.
 
 A record lands in shard `arrival_index // shard_size`. The asymmetry is what makes this dangerous:

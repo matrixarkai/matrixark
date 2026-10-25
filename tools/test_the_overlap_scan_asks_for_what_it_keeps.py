@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 MatrixArkAI
 """The overlap scan asks for the two record types it keeps, and answers the same either way.
 
 `session_commit` builds its overlap set from two loops that keep exactly `context_batch_commit` and

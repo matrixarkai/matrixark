@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 MatrixArkAI
 """The lane's JSON decoder, in one place.
 
 A sampled profile of the running gateway put **53.5%** of its CPU in the stdlib JSON decoder, and

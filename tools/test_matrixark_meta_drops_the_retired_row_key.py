@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 MatrixArkAI
 """The meta a folded embedding leaves behind must not carry that row's own identity.
 
 `embedding_meta` is 12.3% of the durable log, and 36.7% of its bytes were `row_key` -- the identity

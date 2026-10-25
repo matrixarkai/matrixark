@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 MatrixArkAI
 """The prior-context event window must not change what the consumer sees.
 
 `collect_prior_context` walks records newest-first and stops at MAX_PRIOR_MESSAGES, so fetching a

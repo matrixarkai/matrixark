@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 MatrixArkAI
 """A query-string boolean means the same thing on every endpoint.
 
 The gateway defines `_env_bool(value, default)` at the top of the file with the vocabulary this tree

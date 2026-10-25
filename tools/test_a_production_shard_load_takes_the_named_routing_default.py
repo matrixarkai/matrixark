@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 MatrixArkAI
 """A PRODUCTION SHARD LOAD TAKES ITS ROUTING RANGE FROM THE NAMED DEFAULT.
 
 WHY THIS EXISTS. Routing decides which bucket a key's page is FILED under -- the bucket is the

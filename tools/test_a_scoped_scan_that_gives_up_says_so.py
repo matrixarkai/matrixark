@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 MatrixArkAI
 """A scoped scan that gives up and reads the whole store must say so.
 
 Measured 2026-09-09: a degraded window did TEN whole-corpus reads and wrote nothing anywhere. Two

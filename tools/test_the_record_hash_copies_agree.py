@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 MatrixArkAI
 """`record_primary_hash` exists twice and the copies agree. Pinned, and NOT consolidated.
 
 `matrixark_mcp_direct_cache.record_primary_hash` and

@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 MatrixArkAI
 """Two launchers default to two encoders, and the vectors are 16x different in width.
 
 `tools/matrixark_mcp_rust_server.sh` -- `matrixark_agent_config.DEFAULT_LAUNCHER`, the launcher every

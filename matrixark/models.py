@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 MatrixArkAI
 """Shared data contracts for MatrixArk context ingestion and retrieval."""
 
 from __future__ import annotations

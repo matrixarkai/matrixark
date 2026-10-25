@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 MatrixArkAI
 # examples/mem0/local_inprocess_example.py
 """Self-contained, runnable mem0-style example — NO server needed.
 

@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 MatrixArkAI
 """A backend name with a stray space selects the same backend as one without.
 
 `MATRIXARK_MCP_BACKEND` is read by three selector functions and was read again, directly, by two of

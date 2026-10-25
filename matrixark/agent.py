@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 MatrixArkAI
 """Mock AI-agent integration flow for end-to-end MatrixArk tests."""
 
 from __future__ import annotations

@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 MatrixArkAI
 """A dict that holds a container must still be shared once that container is.
 
 Sharing keyed a dict by its contents, so a dict holding a list could not be keyed at all and was

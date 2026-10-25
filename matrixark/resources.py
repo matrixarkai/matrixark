@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 MatrixArkAI
 """Resource parsing and ingestion for Markdown, PDF, and text files."""
 
 from __future__ import annotations

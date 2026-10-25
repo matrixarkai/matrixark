@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 MatrixArkAI
 """Small time parsing helpers used by extraction and query planning."""
 
 from __future__ import annotations

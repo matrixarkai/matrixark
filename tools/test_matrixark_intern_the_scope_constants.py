@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 MatrixArkAI
 """The two largest constants on the wire must ride in the intern bundle, and survive the trip.
 
 `access_scope` was 9.6% of the durable log and `deployment_scope` a further 1.2%, each carrying

@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 MatrixArkAI
 """A self-hosted encoder takes no key, so a missing key must not silence it.
 
 Measured twice on a live one-box: every vector in the store was a 32-dimension token hash while a

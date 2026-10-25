@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 MatrixArkAI
 """The lane has one decoder, and both modules that serve the lane use it.
 
 A profile put 53.5% of gateway CPU in the stdlib JSON decoder. orjson was wired into

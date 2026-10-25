@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 MatrixArkAI
 """An operator sizing a deployment must be able to see what the store keeps.
 
 The event log rotates into fixed-size shards and keeps a bounded number of them, so the retained
