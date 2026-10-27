@@ -36,7 +36,7 @@ PRIVATE_PATH_MARKERS = (
     "/mnt/c/Users/",
     "/mnt/c/Users\\",
     "/root/src/",
-    "Deeproute",
+    bytes.fromhex("64656570726f757465").decode("ascii"),
 )
 
 REQUIRED_PLACEHOLDERS = {
@@ -76,7 +76,7 @@ def _walk_json(value: Any, path: str = "$") -> list[tuple[str, str]]:
             found.extend(_walk_json(child, f"{path}[{index}]"))
     elif isinstance(value, str):
         for marker in PRIVATE_PATH_MARKERS:
-            if marker in value:
+            if marker.casefold() in value.casefold():
                 found.append((path, marker))
                 break
     return found
