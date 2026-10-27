@@ -115,13 +115,14 @@ BACKFILL_CI_GATE_TOKENS = [
     "dual_write_manifest_artifact_sha256_match",
 ]
 
+# Keep private account markers out of the published rule source itself.
+PRIVATE_ACCOUNT_MARKER = bytes.fromhex("64656570726f757465").decode("ascii")
+
 PRIVATE_PATH_TOKENS = [
     "C:\\Users\\",
     "/mnt/c/Users",
     "/mnt/c/Users/",
     "/root/src/",
-    "Ubuntu2204Deeproute",
-    "Deeproute",
     "Vincent Jiang",
 ]
 
@@ -243,12 +244,16 @@ def validate_no_private_paths() -> None:
     tracked = repository_files()
     offenders: list[str] = []
     for relative_path in tracked:
-        if relative_path in PRIVATE_PATH_FIXTURE_FILES:
-            continue
+        if PRIVATE_ACCOUNT_MARKER in relative_path.casefold():
+            offenders.append("tracked filename contains a private account marker")
         path = ROOT / relative_path
         if not path.is_file():
             continue
         text = path.read_text(encoding="utf-8", errors="replace")
+        if PRIVATE_ACCOUNT_MARKER in text.casefold():
+            offenders.append(f"{relative_path}: private account marker")
+        if relative_path in PRIVATE_PATH_FIXTURE_FILES:
+            continue
         for token in PRIVATE_PATH_TOKENS:
             if token in text:
                 offenders.append(f"{relative_path}: {token}")

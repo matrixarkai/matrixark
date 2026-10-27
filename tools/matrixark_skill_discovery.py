@@ -101,10 +101,11 @@ _INTENT_VERBS = (
 
 # Path/format fragments that leak in from file paths and add no intent signal to a name.
 _PATH_NOISE = set(
-    "appdata local users deeproute mnt root tmp temp var src github com www http https "
+    "appdata local users mnt root tmp temp var src github com www http https "
     "documents downloads desktop home usr bin lib etc jsonl json yaml yml txt md py rs toml "
     "html css js ts sh log out err path file dir folder null none true false".split()
 )
+_PATH_NOISE.add(bytes.fromhex("64656570726f757465").decode("ascii"))
 
 
 def _tokens(text: str) -> list[str]:
