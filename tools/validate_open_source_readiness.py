@@ -141,10 +141,12 @@ FALLBACK_SCAN_SKIP_DIRS = {
 # open-source repository. Nothing else in CI has an opinion about prose, so a
 # change can add hundreds of occurrences and still pass every other gate.
 #
-# `matrixobjectstore` is deliberately NOT here: validate_no_enterprise_object_store
-# already distinguishes the enterprise implementation and the private dependency,
-# which must never ship, from the sanctioned feature-gated bridge, whose name is
-# published API. A blanket match would fail on the bridge.
+# `matrixobjectstore` is deliberately NOT here: the crate of that name is Apache-2.0
+# open source and public, so its name is ordinary published API rather than a product
+# name that does not belong here. validate_no_enterprise_object_store draws the line
+# that still matters -- depending on that crate versus containing it, and the separate
+# NATIVE implementation whose sources are not public. A blanket match would fail on
+# every legitimate use of the name.
 FOREIGN_VOCABULARY: list[tuple[str, str, int]] = [
     (
         "language and toolchain names",
@@ -171,8 +173,10 @@ FOREIGN_VOCABULARY_FIXTURE_FILES = {
     "tools/validate_open_source_readiness.py",
 }
 
-# Source files of the enterprise object-store implementation. A public file has no reason to name
-# one: it cannot build them, and naming them maps out a tree that does not ship.
+# Source files of the NATIVE object-store implementation, which is a different tree from the
+# Apache-2.0 `matrixobjectstore-rs` crate in matrixarkai/MatrixObject -- that one is public and
+# Rust-only, and holds none of these basenames. A public file has no reason to name one of these:
+# it cannot build them, and naming them maps out a tree that does not ship.
 ENTERPRISE_NATIVE_SOURCES = [
     "objectstore.cc",
     "objectstore.h",
@@ -265,20 +269,34 @@ def validate_no_private_paths() -> None:
 
 
 def validate_no_enterprise_object_store() -> None:
-    """Fail if the enterprise MatrixObject object store leaks into open source.
+    """Fail if this repository CONTAINS an object store rather than depending on one.
 
-    Only the feature-gated bridge (crates/temporalstore-rust/src/matrixobject_store.rs,
-    behind the empty ``matrixobject`` feature) may reference the private
-    matrixobjectstore-rs crate. The object store implementation itself -- the
-    crates/matrixobject/ crate, or a Cargo dependency on matrixobjectstore-rs --
-    must never ship in OSS. See the matrixobject-never-open-source policy.
+    The ``matrixobjectstore-rs`` crate is Apache-2.0 open source and public, in
+    matrixarkai/MatrixObject, with its own openness gate. Depending on it by public git
+    revision is ordinary -- exactly how the cache and consensus crates are taken -- and is
+    no longer refused here. The two checks that rejected a dependency were written while
+    that crate had no public source, and they would turn this gate red the moment one was
+    declared, which is what happened in TemporalStore.
+
+    What is still refused:
+
+    * ``crates/matrixobject/`` tracked here, or a Cargo.toml naming it by path or as a
+      workspace member -- vendoring a copy of another repository's crate duplicates its
+      source instead of depending on it, which is wrong however open that crate is;
+    * a ``src/bin/`` executable that speaks the object-store wire protocol -- that is the
+      store itself rather than a client of it; and
+    * naming a source file of the NATIVE implementation, which is a separate tree and is
+      not public. That rule is unaffected by the Rust crate being open.
+
+    DEPEND versus CONTAIN is the distinction that survives the crate becoming public.
     """
     tracked = repository_files()
     offenders: list[str] = []
 
     if any(p == "crates/matrixobject" or p.startswith("crates/matrixobject/") for p in tracked):
         offenders.append(
-            "crates/matrixobject/ is tracked -- the object-store crate is enterprise-only"
+            "crates/matrixobject/ is tracked -- depend on the published crate instead of "
+            "vendoring a copy of it here"
         )
 
     for relative_path in tracked:
@@ -295,12 +313,13 @@ def validate_no_enterprise_object_store() -> None:
                 offenders.append(
                     f"{relative_path}: references crates/matrixobject (workspace member or path dep)"
                 )
-            if line.startswith(("matrixobjectstore-rs", "matrixobjectstore_rs")) and "=" in line:
-                offenders.append(
-                    f"{relative_path}: depends on the private matrixobjectstore-rs crate"
-                )
-            if "dep:matrixobjectstore" in line:
-                offenders.append(f"{relative_path}: optional dep pulls in matrixobjectstore")
+            # A DEPENDENCY ON THE OBJECT-STORE CRATE IS NO LONGER AN OFFENCE. Two checks
+            # here rejected one -- a `matrixobjectstore-rs = ...` line and a
+            # `dep:matrixobjectstore` feature entry -- and both were written while that
+            # crate had no public source. It is Apache-2.0 and public now, pinned by git
+            # revision beside the cache and consensus crates, so those checks only served
+            # to turn this gate red when the dependency was declared. What remains refused
+            # is CONTAINING the store, checked above and below.
 
     # A standalone executable that SPEAKS the object-store wire protocol is the store itself,
     # whatever it is named. The sanctioned open-source surface is the feature-gated bridge and
@@ -315,8 +334,8 @@ def validate_no_enterprise_object_store() -> None:
             continue
         if "MORP1" in path.read_text(encoding="utf-8", errors="replace"):
             offenders.append(
-                f"{relative_path}: a src/bin/ executable speaks the enterprise object-store "
-                "wire protocol -- that server is enterprise-only"
+                f"{relative_path}: a src/bin/ executable speaks the object-store wire "
+                "protocol -- that is the store itself rather than a client of it"
             )
 
     # A tracked file that names the enterprise implementation's OWN SOURCE FILES documents that
@@ -334,15 +353,15 @@ def validate_no_enterprise_object_store() -> None:
         for basename in ENTERPRISE_NATIVE_SOURCES:
             if basename in text:
                 offenders.append(
-                    f"{relative_path}: names {basename}, a source file of the enterprise "
-                    "object store -- that tree must not be described in open source"
+                    f"{relative_path}: names {basename}, a source file of the native "
+                    "object store -- that tree is not public and must not be described here"
                 )
                 break
 
     if offenders:
         raise SystemExit(
-            "enterprise MatrixObject object store must not ship in open source "
-            "(see matrixobject-never-open-source policy):\n" + "\n".join(offenders[:50])
+            "this repository must DEPEND on the object store, not CONTAIN it:\n"
+            + "\n".join(offenders[:50])
         )
 
 
