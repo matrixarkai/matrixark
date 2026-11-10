@@ -19,10 +19,14 @@ Everything MatrixArk publishes is public and Apache-2.0:
 | [TemporalStore](https://github.com/matrixarkai/TemporalStore) | Rust | the distributed serving engine — context management, long-sequence serving, aggregated feature serving, frequency capping and control state |
 | [matrixcache](https://github.com/matrixarkai/matrixcache) | Rust | multi-layer cache |
 | [matrixraft](https://github.com/matrixarkai/matrixraft) | Rust | Raft consensus library |
+| [MatrixObject](https://github.com/matrixarkai/MatrixObject) | Rust | distributed object storage with separate metadata and replica services |
+| [MatrixAdsDemo](https://github.com/matrixarkai/MatrixAdsDemo) | Python | an executable ads retrieval, prediction, and auction demonstration |
 
-The split is by language, not by product: **all Python lives here, and TemporalStore is
-the Rust engine only.** If you are looking for the Python that used to sit in the
-TemporalStore tree, it is in this repository, at the same paths.
+This repository owns the Python context runtime and its agent and operator tooling.
+TemporalStore owns the serving engine and also ships its Python LLM-context SDK and
+Feast online-store integrations. Use those engine-specific packages from the
+[TemporalStore repository](https://github.com/matrixarkai/TemporalStore), rather than
+assuming every Python integration is installed by MatrixArk.
 
 ## Layout
 
@@ -92,6 +96,20 @@ flowchart LR
 ```
 
 ## Quick start
+
+From the repository root, install with Python 3.10 or newer:
+
+```bash
+python -m venv .venv
+# Activate the environment using your shell's activation command.
+python -m pip install -e .
+```
+
+The base package has no third-party runtime dependencies. Install `.[models]` for
+the optional model and document providers, or `.[api]` for the HTTP dependencies.
+These extras do not provision a TemporalStore service. The in-memory adapter below
+is useful for local flows; a durable deployment needs an explicitly configured
+storage adapter and a running serving engine.
 
 Run the unit tests:
 
