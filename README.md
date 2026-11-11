@@ -162,20 +162,19 @@ storage adapter and a running serving engine.
 Run the unit tests:
 
 ```bash
-python -m unittest discover -s matrixark/tests -v
+python -m unittest discover -s tests -v
 ```
 
 Run a sample flow:
 
 ```bash
-python matrixark/examples/gpu_purchase_flow.py
-python matrixark/examples/agent_loop_flow.py
+python examples/gpu_purchase_flow.py
+python examples/agent_loop_flow.py
 ```
 
 Run Docker with open-source embeddings:
 
 ```bash
-cd matrixark
 docker compose build
 MATRIXARK_ALLOW_MODEL_DOWNLOAD=1 docker compose run --rm matrixark-test
 ```
