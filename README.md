@@ -28,6 +28,21 @@ Feast online-store integrations. Use those engine-specific packages from the
 [TemporalStore repository](https://github.com/matrixarkai/TemporalStore), rather than
 assuming every Python integration is installed by MatrixArk.
 
+## Choose Your Starting Point
+
+| Goal | Start with |
+|---|---|
+| Run a local context flow | [Quick start](#quick-start) and the examples below |
+| Embed context ingestion and retrieval | [Integration shape](#integration-shape) |
+| Connect durable serving state | [Deployment adapters](#deployment-adapters) |
+| Serve Feast online features | [TemporalStore's Feast integration](https://github.com/matrixarkai/TemporalStore/tree/main/integrations/feast) |
+| Build an agent-facing tool | The installed MCP, HTTP, and hook entry points below |
+
+The local in-memory adapter and deterministic providers are a starting point, not a
+durable deployment. Installing this package does not start TemporalStore or configure
+model credentials. Choose a storage adapter, provider configuration, and service
+lifecycle explicitly before relying on retained context across process restarts.
+
 ## Layout
 
 ```
