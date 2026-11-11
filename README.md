@@ -44,6 +44,21 @@ durable deployment. Installing this package does not start TemporalStore or conf
 model credentials. Choose a storage adapter, provider configuration, and service
 lifecycle explicitly before relying on retained context across process restarts.
 
+### Feature-serving configuration belongs to the engine
+
+For Feast materialization and online reads, configure the provider in the
+[TemporalStore command integration](https://github.com/matrixarkai/TemporalStore/tree/main/integrations/feast/feast_temporalstore_command).
+That package owns bounded binary batches, timestamp-conditioned latest values,
+optional key TTL, and adaptive timestamp prefetch for stale traffic. The prefetch
+hint does not cache timestamps, and supported conditional writes still enforce
+ordering on the server. Augmented writes and older-node fallbacks have different
+concurrency limits, documented with the provider.
+
+These are engine-client options, not MatrixArk context-adapter settings. Installing
+or configuring MatrixArk does not enable Feast history, teardown key tracking, or
+a distributed serving topology. Use the provider's setup and benchmark guides for
+that workflow rather than inferring service throughput from context-runtime calls.
+
 ## Layout
 
 ```
