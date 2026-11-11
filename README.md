@@ -73,6 +73,21 @@ or configuring MatrixArk does not enable Feast history, teardown key tracking, o
 a distributed serving topology. Use the provider's setup and benchmark guides for
 that workflow rather than inferring service throughput from context-runtime calls.
 
+## Deployment and Upgrade Checklist
+
+- Pin the Python package and storage-client versions. Choose context workflows
+  here or online-feature workflows in the TemporalStore Feast integration;
+  installing one does not configure the other.
+- Select a durable adapter before relying on context across restarts. The
+  in-memory adapter is a local implementation, not replicated persistence.
+- Configure model providers, credentials, and download policy explicitly. The
+  deterministic providers do not establish deployed model quality or latency.
+- Preserve access to raw resource URIs as well as stored chunks and vectors.
+  The runtime does not copy the original resource into serving storage.
+- Treat an embedding-model change as a data migration: keep model identity,
+  vector dimensions, and stored embeddings consistent with the query encoder.
+  Do not compare context-extraction latency with storage-only read QPS.
+
 ## Layout
 
 ```
