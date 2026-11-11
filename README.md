@@ -28,6 +28,20 @@ Feast online-store integrations. Use those engine-specific packages from the
 [TemporalStore repository](https://github.com/matrixarkai/TemporalStore), rather than
 assuming every Python integration is installed by MatrixArk.
 
+## Deployment Responsibilities
+
+| Component | Responsibility |
+|---|---|
+| MatrixArk runtime | Context ingestion, query planning, retrieval, packing, and feedback |
+| Storage adapter | Connecting runtime state to the selected durable backend |
+| Model providers | Extraction and embedding configuration, credentials, timeouts, and model lifecycle |
+| Host application | Starting services, access control, request budgets, and handling provider failures |
+
+Choose the context runtime for context workflows and TemporalStore's Feast integration for
+online feature workflows. They can share a serving backend, but package installation does
+not connect them automatically. Keep raw-resource access and model credentials configured
+outside examples, and do not treat deterministic local providers as deployed model services.
+
 ## Choose Your Starting Point
 
 | Goal | Start with |
