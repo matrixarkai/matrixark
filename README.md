@@ -11,7 +11,7 @@ modify and build on.** Issues and pull requests are welcome from everyone — se
 
 ## The MatrixArk repositories
 
-Everything MatrixArk publishes is public and Apache-2.0:
+The core projects listed below are public and Apache-2.0:
 
 | repository | language | what it is |
 |---|---|---|
@@ -36,6 +36,7 @@ assuming every Python integration is installed by MatrixArk.
 | Embed context ingestion and retrieval | [Integration shape](#integration-shape) |
 | Connect durable serving state | [Deployment adapters](#deployment-adapters) |
 | Serve Feast online features | [TemporalStore's Feast integration](https://github.com/matrixarkai/TemporalStore/tree/main/integrations/feast) |
+| Configure feature-serving writes and expiry | [Native Feast provider](https://github.com/matrixarkai/TemporalStore/tree/main/integrations/feast/feast_temporalstore_command) |
 | Build an agent-facing tool | The installed MCP, HTTP, and hook entry points below |
 
 The local in-memory adapter and deterministic providers are a starting point, not a
@@ -181,6 +182,22 @@ and chunk embeddings, and context-pack audits.
 
 TemporalStore is the only serving store. Raw files are mounted or referenced by
 `raw_uri`; parsed serving data and vectors are stored through TemporalStore.
+
+### Context APIs and online features
+
+Context ingestion and token-budgeted retrieval are this package's workflows.
+Feast latest-value serving is a separate TemporalStore integration: install and
+configure its provider from the engine repository. Installing MatrixArk does not
+register a Feast provider, materialize offline features, start a cache server,
+or establish a replicated storage cluster.
+
+Keep performance measurements scoped to the API being used. Context extraction,
+embedding generation, retrieval, and prompt packing include different work from
+an online feature point read. For feature-serving materialization and read
+workloads, use the engine's
+[benchmark guide](https://github.com/matrixarkai/TemporalStore/blob/main/docs/feast_online_store_benchmark.md)
+with matching payloads, durability, and concurrency. Do not infer context-model
+quality or end-to-end agent latency from storage QPS alone.
 
 ## API safety
 
