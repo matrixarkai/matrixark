@@ -88,6 +88,21 @@ that workflow rather than inferring service throughput from context-runtime call
   vector dimensions, and stored embeddings consistent with the query encoder.
   Do not compare context-extraction latency with storage-only read QPS.
 
+## Context Workflow Map
+
+| Input or action | Runtime output | Keep configured outside the runtime |
+|---|---|---|
+| Query or agent event | Validated context events and selected context nodes | Tenant identity, access policy, and request budgets. |
+| Markdown, PDF, or text resource | Stable chunks, source metadata, and embedding records | Durable access to the original `raw_uri`; parsed storage does not copy the source file. |
+| Retrieval request | Ranked, token-budgeted context pack | Storage connectivity and the model identity used for stored and query vectors. |
+| Final answer and confirmation | Feedback events available to later retrieval | The agent's model call and the application's decision to accept an answer. |
+| Online feature materialization | A separate TemporalStore Feast workflow | Install and configure the engine provider; a context adapter does not register it. |
+
+Start with [resource ingestion](#resource-flow), the [agent loop](#agent-loop),
+or [deployment adapters](#deployment-adapters) for the corresponding contract.
+Deterministic example providers make local flows reproducible, but do not establish
+the quality or latency of a deployed extraction or embedding model.
+
 ## Layout
 
 ```
