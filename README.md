@@ -146,9 +146,12 @@ From the repository root, install with Python 3.10 or newer:
 
 ```bash
 python -m venv .venv
-# Activate the environment using your shell's activation command.
+source .venv/bin/activate
 python -m pip install -e .
 ```
+
+In Windows PowerShell, use `.\.venv\Scripts\Activate.ps1` instead of the
+`source` line. Run the install and examples from this repository's root.
 
 The base package has no third-party runtime dependencies. Install `.[models]` for
 the optional model and document providers, or `.[api]` for the HTTP dependencies.
