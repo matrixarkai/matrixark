@@ -83,11 +83,17 @@ and history queries are different workflows, not interchangeable API calls.
 The storage protocol describes what the runtime needs from its backend; the local
 adapter is not a durable service. Its embedding search scores stored vectors with
 cosine similarity and returns positive-scoring candidates, not a graph ANN search.
-Its event query bounds candidate collection before ranking, so it is not an exact
-global top-k over unlimited history. Do not extrapolate its retrieval quality or
-latency to a remote deployment. Follow the deployment adapter instructions when
-connecting retained context to a running backend, and configure model providers
-separately from storage.
+Its event query filters by tenant, requested nodes, time window, validity, and
+attributes before ranking candidates by importance and event time. Candidate
+collection stops at four times the requested limit before that ranking, so the
+result is not an exact global top-k over unlimited history. Node traversal order
+can affect which candidates enter the bounded set.
+
+Tenant-scoped storage keys are not authentication or authorization. The host must
+validate the caller's tenant and access policy before invoking the runtime. Do
+not extrapolate local retrieval quality or latency to a remote deployment.
+Follow the deployment adapter instructions for retained state and configure
+model providers separately from storage.
 
 ## Choose Your Starting Point
 
