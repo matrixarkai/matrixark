@@ -13,14 +13,14 @@ modify and build on.** Issues and pull requests are welcome from everyone — se
 
 The core projects listed below are public and Apache-2.0:
 
-| repository | language | what it is |
+| Project | Use it for | Execution model |
 |---|---|---|
-| **matrixark** (this one) | Python | the context runtime, the MCP server, the HTTP control plane, the agent hooks and the operator tools |
-| [TemporalStore](https://github.com/matrixarkai/TemporalStore) | Rust | the distributed serving engine — context management, long-sequence serving, aggregated feature serving, frequency capping and control state |
-| [matrixcache](https://github.com/matrixarkai/matrixcache) | Rust | multi-layer cache |
-| [matrixraft](https://github.com/matrixarkai/matrixraft) | Rust | Raft consensus library |
-| [MatrixObject](https://github.com/matrixarkai/MatrixObject) | Rust | distributed object storage with separate metadata and replica services |
-| [MatrixAdsDemo](https://github.com/matrixarkai/MatrixAdsDemo) | Python | an executable ads retrieval, prediction, and auction demonstration |
+| **MatrixArk (this repository)** | Context ingestion, retrieval, and feedback | Python runtime, MCP and HTTP entry points, and agent hooks; configure storage and model providers explicitly. |
+| [TemporalStore](https://github.com/matrixarkai/TemporalStore) | Temporal features, sequences, and context serving | Serving engine with its own endpoints, persistence, and replication settings. |
+| [MatrixCache](https://github.com/matrixarkai/matrixcache) | Tiered caching inside a Rust application | Embedded library; the application owns authoritative data and network requests. |
+| [MatrixRaft](https://github.com/matrixarkai/matrixraft) | Consensus inside a service | Embedded library; the host supplies transport and state-machine application. |
+| [MatrixObject](https://github.com/matrixarkai/MatrixObject) | Distributed object storage | Object API with separately configured metadata and replica services. |
+| [MatrixAdsDemo](https://github.com/matrixarkai/MatrixAdsDemo) | Exploring an ads retrieval and auction pipeline | Standalone generated-data demonstration, not a context-runtime deployment. |
 
 This repository owns the Python context runtime and its agent and operator tooling.
 TemporalStore owns the serving engine and also ships its Python LLM-context SDK and
