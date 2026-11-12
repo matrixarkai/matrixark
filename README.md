@@ -59,6 +59,19 @@ online feature workflows. They can share a serving backend, but package installa
 not connect them automatically. Keep raw-resource access and model credentials configured
 outside examples, and do not treat deterministic local providers as deployed model services.
 
+### Select storage before connecting a workflow
+
+Start with the [storage protocol and local adapter](matrixark/storage.py) when
+embedding the runtime. The protocol defines the operations the runtime calls;
+it is not a promise that every backend provides identical durability or query
+behavior. Select the [deployment adapter](#deployment-adapters) explicitly for
+retained state, and keep the backend's lifecycle separate from model-provider
+configuration.
+
+For online feature materialization instead, install the TemporalStore Feast
+provider from its own repository. Context packing, Feast latest-value reads,
+and history queries are different workflows, not interchangeable API calls.
+
 ## Implementation entry points
 
 | Area | Start reading |
