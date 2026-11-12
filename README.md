@@ -167,6 +167,14 @@ A few decisions shape the whole runtime, and each one is there to keep serving c
 - **Validation before any write**, so a bad agent input fails loudly instead of becoming
   replayable context.
 
+Validation is not a transaction boundary. Ingestion calls the adapter for the
+node, event, indexes, and dirty marker before generating and storing embeddings.
+A later provider or storage failure can therefore leave earlier writes in place.
+The runtime does not automatically roll them back. When implementing a durable
+adapter, define retry and reconciliation behavior explicitly; do not infer
+all-or-nothing persistence from a failed `ingest()` call. See the
+[ingestion sequence](matrixark/api.py) and [adapter protocol](matrixark/storage.py).
+
 The default implementation is dependency-light and uses deterministic local models, so
 the fast tests run without downloading anything. Docker runs the same flow with
 `sentence-transformers/all-MiniLM-L6-v2` for embeddings and `google/flan-t5-small` as
