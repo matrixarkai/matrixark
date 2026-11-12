@@ -206,9 +206,12 @@ flowchart LR
 
 ## Quick start
 
-From the repository root, install with Python 3.10 or newer:
+With Git and Python 3.10 or newer installed, check out the public source and
+create an isolated environment:
 
 ```bash
+git clone https://github.com/matrixarkai/matrixark.git
+cd matrixark
 python -m venv .venv
 source .venv/bin/activate
 python -m pip install -e .
