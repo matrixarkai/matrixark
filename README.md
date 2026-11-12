@@ -143,6 +143,12 @@ that workflow rather than inferring service throughput from context-runtime call
 
 ## Context Workflow Map
 
+Keep extraction, embedding, storage, retrieval, and packing times separate when
+evaluating a workflow. Record provider/model identity, corpus size, vector width,
+request concurrency, and token budget. End-to-end context latency includes external
+model calls when configured; it is not the same measurement as storage read QPS.
+Compare retrieval quality and returned context size alongside elapsed time.
+
 | Input or action | Runtime output | Keep configured outside the runtime |
 |---|---|---|
 | Query or agent event | Validated context events and selected context nodes | Tenant identity, access policy, and request budgets. |
