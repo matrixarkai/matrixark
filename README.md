@@ -55,6 +55,19 @@ online feature workflows. They can share a serving backend, but package installa
 not connect them automatically. Keep raw-resource access and model credentials configured
 outside examples, and do not treat deterministic local providers as deployed model services.
 
+## Implementation entry points
+
+| Area | Start reading |
+|---|---|
+| Context service orchestration | [Runtime API](matrixark/api.py) |
+| Storage protocol and local adapter | [Storage interfaces](matrixark/storage.py) |
+| End-to-end agent integration example | [Agent flow](examples/agent_loop_flow.py) |
+
+The storage protocol describes what the runtime needs from its backend; the local
+adapter is not a durable service. Follow the deployment adapter instructions when
+connecting retained context to a running backend, and configure model providers
+separately from storage.
+
 ## Choose Your Starting Point
 
 | Goal | Start with |
