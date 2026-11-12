@@ -11,6 +11,10 @@ modify and build on.** Issues and pull requests are welcome from everyone — se
 
 ## The MatrixArk repositories
 
+**On this page:** [Quick start](#quick-start) | [Workflow](#workflow) |
+[Integration](#integration-shape) | [Deployment adapters](#deployment-adapters) |
+[API safety](#api-safety) | [Agent loop](#agent-loop) | [Help](#getting-help).
+
 The core projects listed below are public and Apache-2.0:
 
 | Project | Use it for | Execution model |
