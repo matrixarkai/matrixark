@@ -28,6 +28,19 @@ Feast online-store integrations. Use those engine-specific packages from the
 [TemporalStore repository](https://github.com/matrixarkai/TemporalStore), rather than
 assuming every Python integration is installed by MatrixArk.
 
+## Getting Help
+
+Search [public issues](https://github.com/matrixarkai/matrixark/issues) before
+opening a report. Include the revision, Python version, entry point, storage
+adapter, and provider configuration with secrets removed. Supply a small synthetic
+resource or query and the expected context result. For embedding problems, include
+model identity and vector dimensions; for resource access, describe how the raw
+resource remains available without publishing its private URI.
+
+Do not attach model API keys, user conversations, or production context packs.
+Follow the [security policy](SECURITY.md) for sensitive reports, not a public issue.
+For code or documentation changes, start with [CONTRIBUTING.md](CONTRIBUTING.md).
+
 ## Deployment Responsibilities
 
 | Component | Responsibility |
