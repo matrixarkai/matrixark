@@ -81,7 +81,11 @@ and history queries are different workflows, not interchangeable API calls.
 | End-to-end agent integration example | [Agent flow](examples/agent_loop_flow.py) |
 
 The storage protocol describes what the runtime needs from its backend; the local
-adapter is not a durable service. Follow the deployment adapter instructions when
+adapter is not a durable service. Its embedding search scores stored vectors with
+cosine similarity and returns positive-scoring candidates, not a graph ANN search.
+Its event query bounds candidate collection before ranking, so it is not an exact
+global top-k over unlimited history. Do not extrapolate its retrieval quality or
+latency to a remote deployment. Follow the deployment adapter instructions when
 connecting retained context to a running backend, and configure model providers
 separately from storage.
 
